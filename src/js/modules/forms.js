@@ -1,7 +1,9 @@
-const forms = () => {
+import { closeModals } from "./modals";
+import checkNumInputs from "./checkNumInputs";
+
+const forms = (state) => {
     const formList = document.querySelectorAll('form');
     const inputList = document.querySelectorAll('input');
-    const inputPhoneList = document.querySelectorAll('input[name="user_phone"]');
 
     const message = {
         loading: 'Загрузка...',
@@ -9,11 +11,9 @@ const forms = () => {
         failure: 'Что-то пошло не так :('
     };
 
-    inputPhoneList.forEach(input => {
-        input.addEventListener('input', () => {
-            input.value = input.value.replace(/\D/, '');
-        })
-    })
+    checkNumInputs('input[name="user_phone"]');
+    checkNumInputs('#width');
+    checkNumInputs('#height');
 
     const clearInputs = (list) => {
         list.forEach(item => item.value = '');
@@ -40,6 +40,12 @@ const forms = () => {
 
             const formData = new FormData(form);
 
+            if(form.getAttribute('data-calc') === 'end') {
+                for(let key in state) {
+                    formData.append(key, state[key]);
+                }
+            }
+
             postData('assets/server.php', formData)
                 .then(res => {
                     console.log(res);
@@ -49,9 +55,13 @@ const forms = () => {
                     statusMessage.textContent = message.failure;
                 })
                 .finally(() => {
+                    for(let key in state) {
+                        state[key] = '';
+                    }
                     clearInputs(inputList);
                     setTimeout(() => {
                         statusMessage.remove();
+                        closeModals('[data-modal]');
                     }, 3000);
                 });
         })
