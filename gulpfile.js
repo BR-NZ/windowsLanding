@@ -4,7 +4,7 @@
 const gulp = require("gulp");
 const webpack = require("webpack-stream");
 const browsersync = require("browser-sync");
-const dist = "./dist/";
+const dist = "/Applications/XAMPP/xamppfiles/htdocs/windows-landing";
 
 // ТАСКА : HTML в src -> кладем в dist (запустит сервер)
 // stream - вносим измнения в страницу браузера (без обновления)
