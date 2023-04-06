@@ -91,7 +91,7 @@ gulp.task("build-prod-js", () => {
 // при изменении определенных файлов сервер запускает определенные таски 
 gulp.task("watch", () => {
     browsersync.init({
-        server: "./dist/",
+        server: dist,
         port: 4000,
         notify: true
     });
