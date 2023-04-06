@@ -1804,6 +1804,20 @@ textarea:focus {
   }
 }
 
+.faded {
+  animation-name: fade;
+  animation-duration: 0.5s;
+}
+
+@keyframes fade {
+  from {
+    opacity: 0.1;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 /* small devices, tablets */
 @media only screen and (max-width: 768px) {
   .animated {
